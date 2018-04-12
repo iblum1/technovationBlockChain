@@ -1,0 +1,62 @@
+/**
+ * Write your model definitions here
+ */
+
+namespace org.techno.demo
+
+asset Loan identified by loanId {
+  o String loanId
+  o Long loanAmount
+  o DateTime maturityDate
+  o LoanStatus status
+  --> Commitment commitment optional
+  --> Business business
+}
+
+asset Commitment identified by commitmentId {
+  o String commitmentId
+  --> Seller seller
+  --> Buyer buyer
+  o Long currentCommitmentAmount
+  o Long commitmentAmountToReach
+  o DateTime commitmentEndDate
+  o DateTime commitmentStartDate optional
+  o Loan[] loansReceived optional
+}
+
+concept Address {
+	o String city optional
+    o String country
+    o String street optional
+    o String zip optional
+}
+
+enum LoanStatus {
+  o ATSELLER
+  o ACQUIRED
+}
+
+abstract participant Business identified by name {
+  o String name
+  o Address address
+}
+
+participant Seller extends Business {
+}
+
+participant Buyer extends Business {
+}
+
+abstract transaction LoanTransaction {
+	--> Loan loan
+    --> Commitment commitment
+}
+
+transaction SendLoan extends LoanTransaction {
+}
+
+transaction CreateLoan {
+}
+
+transaction SetupDemo {
+}
