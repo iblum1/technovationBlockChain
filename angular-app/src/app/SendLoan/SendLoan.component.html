@@ -192,6 +192,15 @@
               <li><span class="attribute"><b>timestamp</b></span></li>
             
           </ul>
+          <div class="form-group">
+            <label for="loanId">Loan Id</label>
+            <input type="text" class="form-control" id="loanid"  [(ngModel)]="model.loanId" required>
+          </div>
+          <div class="form-group">
+            <label for="commitmentId">Commitment Id</label>
+            <input type="text" class="form-control" id="commitmentid" [(ngModel)]="model.commitmentId" required>
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
         </div>
       </div>
     </div>

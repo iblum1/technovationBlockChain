@@ -148,10 +148,6 @@ export class LoanComponent implements OnInit {
         
       
         
-          "commitment":this.commitment.value,
-        
-      
-        
           "business":this.business.value
         
       
