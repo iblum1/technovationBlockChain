@@ -1,0 +1,130 @@
+/**
+ * Write your model definitions here
+ */
+
+namespace com.innovation.commitment.model
+
+/**
+ * The type of loan product being commited
+ */
+enum ProductType {
+  o FIXED30
+  o FIXED15
+  o ARM15
+  o ARM20
+  o FIXED20
+}
+
+/**
+ * The status of a commitment
+ */
+enum CommitmentStatus {
+  o CREATED
+  o PAIROFF
+  o COMMITTED
+  o COMPLETE
+}
+
+enum RelationshipStatus{
+  o PENDING
+  o ACCCEPTED
+  o REJECTED
+  o CANCELLED
+  o SUSPENDED
+  o ACTIVATED
+}
+/**
+ * An abstract transaction that is related to a Shipment
+ */
+abstract transaction CommitmentTransaction {
+    --> Commitment commitment
+}
+
+/**
+ * A loan delivered for a commitment. E.g. received from a
+ * seller who has made the commitment 
+ */
+transaction LoanDelivered extends CommitmentTransaction {
+  o Double loanValue
+  o DateTime loanDeliveryDate
+}
+
+/**
+ * A commitment being tracked as an asset on the ledger
+ */
+asset Commitment identified by commitmentId {
+  o String commitmentId
+  o ProductType type
+  o CommitmentStatus status
+  o Long loanCount
+  o LoanDelivered[] deliveredLoans optional
+  --> CommitmentContract contract
+}
+
+/**
+ * Defines a contract between a Grower and an Importer to ship using
+ * a Shipper, paying a set unit price. The unit price is multiplied by
+ * a penality factor proportional to the deviation from the min and max
+ * negociated temperatures for the shipment.
+ */
+asset CommitmentContract identified by contractId {
+  o String contractId
+  --> Seller seller
+  --> Servicer servicer
+  --> Mediator mediator
+  o DateTime commitmentDateTime
+  o DateTime commitmentEndDateTime
+  o Double commitmentValue
+  o Double paymentValue
+  o Double feeValue
+  o Double penaltyFactor
+}
+
+event RelationshipEvent {
+  o String message
+  o Double temperature
+  --> Servicer servicer
+  --> Seller seller
+}
+/* A concept for a simple street address
+ */
+concept Address {
+  o String city optional
+  o String country
+  o String street optional
+  o String zip optional
+}
+
+/**
+ * An abstract participant type in this business network
+ */
+abstract participant Business identified by partyId {
+  o String partyId
+  o String CompanyName
+  o Address address
+  o Double accountBalance
+}
+
+/**
+ * A Grower is a type of participant in the network
+ */
+participant Seller extends Business {
+}
+
+/**
+ * A Shipper is a type of participant in the network
+ */
+participant Servicer extends Business {
+}
+
+/**
+ * An Importer is a type of participant in the network
+ */
+participant Mediator extends Business {
+}
+
+/**
+ * JUST FOR INITIALIZING A DEMO
+ */
+transaction SetupDemo {
+}
