@@ -145,21 +145,61 @@ label {
 }
 .plus-svg{
     color: #fff;
-    fill: currentColor;
+    fill: currentColor; 
 }
 
-/***.transaction-properties:hover, .transaction-properties:hover span{  
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 0px 3px 3px 3px solid black;
+}
+
+.tableHeader {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.cellHeader {
+    font-weight: bold;
+    display: inline;
+}
+
+.cellValue {
+    display: inline;
+}
+
+.inputBox {
+    float: right; 
+}
+
+.inputBoxText {
+    float: left;
+}
+
+.inputGroup {
+    width: 325px;
+    display: inline-grid;
+}
+
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}
+
+/* .transaction-properties:hover, .transaction-properties:hover span{  
 overflow: visible;
 position: relative;
- make readable design 
-background-color: #FFFFFF;
-border: 1px solid #FFFFFF;
-border-radius: 4px;
-padding: 3px;
-/* compensate padding and border size to avoid jerking 
-margin-left: -4px;
-}
-***/
-
-
-
+ /* make readable design  */
+/* background-color: #FFFFFF; */
+/* border: 1px solid #FFFFFF; */
+/* border-radius: 4px; */
+/* padding: 3px; */
+ /* compensate padding and border size to avoid jerking */
+/* margin-left: -4px; */
+/* } */
