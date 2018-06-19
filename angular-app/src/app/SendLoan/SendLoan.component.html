@@ -2,59 +2,61 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="addTransactionModalLabel">Create Transaction</h4>
-          <p class="modal-intro">Enter the required values below.</p>
+        <p class="modal-intro">Enter the required values below.</p>
       </div>
       <form [formGroup]="myForm">
         <div class="modal-body">
 
 
-          
 
-            
-              <div class="form-group text-left">
-                <label for="loan">loan</label>
-                
-                    <textarea formControlName="loan" class="form-control" rows="3"></textarea>
-                
-              </div>
-            
-          
 
-            
-              <div class="form-group text-left">
-                <label for="commitment">commitment</label>
-                
-                    <textarea formControlName="commitment" class="form-control" rows="3"></textarea>
-                
-              </div>
-            
-          
 
-            
-              <div class="form-group text-left">
-                <label for="transactionId">transactionId</label>
-                
-                  <input formControlName="transactionId" type="text" class="form-control">
-                
-              </div>
-            
-          
+          <div class="form-group text-left">
+            <label for="loan">loan</label>
 
-            
-              <div class="form-group text-left">
-                <label for="timestamp">timestamp</label>
-                
-                  <input formControlName="timestamp" type="text" class="form-control">
-                
-              </div>
-            
-          
+            <textarea formControlName="loan" class="form-control" rows="3"></textarea>
+
+          </div>
+
+
+
+
+          <div class="form-group text-left">
+            <label for="commitment">commitment</label>
+
+            <textarea formControlName="commitment" class="form-control" rows="3"></textarea>
+
+          </div>
+
+
+
+
+          <div class="form-group text-left">
+            <label for="transactionId">transactionId</label>
+
+            <input formControlName="transactionId" type="text" class="form-control">
+
+          </div>
+
+
+
+
+          <div class="form-group text-left">
+            <label for="timestamp">timestamp</label>
+
+            <input formControlName="timestamp" type="text" class="form-control">
+
+          </div>
+
+
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           <button (click)="addTransaction(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
 
         </div>
@@ -70,54 +72,56 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="updateTransactionModalLabel">Update Transaction</h4>
       </div>
       <form [formGroup]="myForm">
         <div class="modal-body">
 
 
-          
-            <div class="form-group text-left">
-              <label for="loan">loan</label>
 
-              
-                
-                  <textarea [ngModel]="loan" formControlName="loan" class="form-control" rows="3"></textarea>
-                
-              
+          <div class="form-group text-left">
+            <label for="loan">loan</label>
 
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="commitment">commitment</label>
 
-              
-                
-                  <textarea [ngModel]="commitment" formControlName="commitment" class="form-control" rows="3"></textarea>
-                
-              
 
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="transactionId">transactionId</label>
+            <textarea [ngModel]="loan" formControlName="loan" class="form-control" rows="3"></textarea>
 
-              
-                <input [ngModel]="transactionId"formControlName="transactionId" type="text" class="form-control">
-              
 
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="timestamp">timestamp</label>
 
-              
-                <input [ngModel]="timestamp"formControlName="timestamp" type="text" class="form-control">
-              
+          </div>
 
-            </div>
-          
+          <div class="form-group text-left">
+            <label for="commitment">commitment</label>
+
+
+
+            <textarea [ngModel]="commitment" formControlName="commitment" class="form-control" rows="3"></textarea>
+
+
+
+          </div>
+
+          <div class="form-group text-left">
+            <label for="transactionId">transactionId</label>
+
+
+            <input [ngModel]="transactionId" formControlName="transactionId" type="text" class="form-control">
+
+
+          </div>
+
+          <div class="form-group text-left">
+            <label for="timestamp">timestamp</label>
+
+
+            <input [ngModel]="timestamp" formControlName="timestamp" type="text" class="form-control">
+
+
+          </div>
+
 
 
         </div>
@@ -132,11 +136,13 @@
 
 
 
-<div class="modal fade" id="deleteTransactionModal" tabindex="-1" role="dialog" aria-labelledby="deleteTransactionModalLabel">
+<!-- <div class="modal fade" id="deleteTransactionModal" tabindex="-1" role="dialog" aria-labelledby="deleteTransactionModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="deleteTransactionModalLabel">Delete Transaction</h4>
       </div>
       <form [formGroup]="myForm" (ngSubmit)="deleteTransaction()">
@@ -150,7 +156,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
@@ -163,13 +169,13 @@
 
 
 <div class="container">
-    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-        <strong>Error:</strong> {{errorMessage}}
-    </div>
-  
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <strong>Error:</strong> {{errorMessage}}
+  </div>
+
   <div class="row">
     <div class="col-md-9">
-        <h1 class="transaction-title" id='transactionName'>SendLoan</h1>
+      <h1 class="transaction-title" id='transactionName'>Send Loan</h1>
     </div>
     <div class="col-md-3">
     </div>
@@ -182,28 +188,78 @@
           When invoked, this transaction will have the following attributes:
           <br>
           <ul>
-            
-              <li><span class="attribute"><b>loan</b></span></li>
-            
-              <li><span class="attribute"><b>commitment</b></span></li>
-            
-              <li><span class="attribute"><b>transactionId</b></span></li>
-            
-              <li><span class="attribute"><b>timestamp</b></span></li>
-            
+
+            <li>
+              <span class="attribute">
+                <b>loan</b>
+              </span>
+            </li>
+
+            <li>
+              <span class="attribute">
+                <b>commitment</b>
+              </span>
+            </li>
+
+            <li>
+              <span class="attribute">
+                <b>transactionId</b>
+              </span>
+            </li>
+
+            <li>
+              <span class="attribute">
+                <b>timestamp</b>
+              </span>
+            </li>
+
           </ul>
-          <div class="form-group">
-            <label for="loanId">Loan Id</label>
-            <input type="text" class="form-control" id="loanid"  [(ngModel)]="model.loanId" required>
-          </div>
-          <div class="form-group">
-            <label for="commitmentId">Commitment Id</label>
-            <input type="text" class="form-control" id="commitmentid" [(ngModel)]="model.commitmentId" required>
-          </div>
-          <button type="submit" class="btn btn-success">Submit</button>
+
+          <p-dataList [value]="tempList" [paginator]="true" [rows]="5">
+            <p-header class="tableHeader">
+              Send Loans Transactions Executed
+            </p-header>
+            <ng-template let-tempList pTemplate="object">
+              <div class="ui-g-12 ui-md-9">
+                <div class="cellHeader">Loan ID:</div>
+                <div class="cellValue">{{tempList.loan}}</div>
+                <div class="cellHeader">Commitment ID:</div>
+                <div class="cellValue">{{tempList.commitment}}</div>
+                <div class="cellHeader">Transaction ID:</div>
+                <div class="cellValue">{{tempList.transactionId}}</div>
+                <div class="cellHeader">Timestamp:</div>
+                <div class="cellValue">{{tempList.timestamp}}</div>
+              </div>
+            </ng-template>
+          </p-dataList>
+
+          <form class="inputGroup" (ngSubmit)="addTransaction()" [formGroup]="myForm">
+            <div class="ui-inputgroup">
+              <div>
+                <div class="inputBoxText">
+                  <span class="ui-inputgroup-addon">Loan ID</span>
+                </div>
+                <div class="inputBox">
+                  <input #loanid class="form-control" type="text" pInputText placholder="Loan ID" required formControlName="loan">
+                  <div [hidden]="loan.value || loan.pristine" class="alert alert-danger">Loan ID is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-inputgroup">
+              <div>
+                <div class="inputBoxText">
+                  <span class="ui-inputgroup-addon">Commitment ID</span>
+                </div>
+                <div class="inputBox">
+                  <input #commitmentid class="form-control" type="text" pInputText placholder="Commitment ID" required formControlName="commitment">
+                  <div [hidden]="commitment.value || commitment.pristine" class="alert alert-danger">Commitment ID is required</div>
+                </div>
+              </div>
+            </div>
+           <button type="submit" class="btn btn-success" [disabled]="!myForm.valid" (onClick)="addTransaction()">Submit Transaction</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
- 

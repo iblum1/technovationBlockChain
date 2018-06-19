@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { SendLoanService } from './SendLoan.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-SendLoan',
-	templateUrl: './SendLoan.component.html',
-	styleUrls: ['./SendLoan.component.css'],
+  selector: 'app-SendLoan',
+  templateUrl: './SendLoan.component.html',
+  styleUrls: ['./SendLoan.component.css'],
   providers: [SendLoanService]
 })
 export class SendLoanComponent implements OnInit {
@@ -15,75 +15,80 @@ export class SendLoanComponent implements OnInit {
   private allTransactions;
   private Transaction;
   private currentId;
-	private errorMessage;
-
-  
-      
-          loan = new FormControl("", Validators.required);
-        
-  
-      
-          commitment = new FormControl("", Validators.required);
-        
-  
-      
-          transactionId = new FormControl("", Validators.required);
-        
-  
-      
-          timestamp = new FormControl("", Validators.required);
-        
-  
+  private errorMessage;
 
 
-  constructor(private serviceSendLoan:SendLoanService, fb: FormBuilder) {
+
+  loan = new FormControl("", Validators.required);
+
+
+
+  commitment = new FormControl("", Validators.required);
+
+
+
+  transactionId = null;
+
+
+
+  timestamp = null;
+
+
+
+
+  constructor(private serviceSendLoan: SendLoanService, fb: FormBuilder) {
     this.myForm = fb.group({
-    
-        
-          loan:this.loan,
-        
-    
-        
-          commitment:this.commitment,
-        
-    
-        
-          transactionId:this.transactionId,
-        
-    
-        
-          timestamp:this.timestamp
-        
-    
+
+
+      loan: this.loan,
+
+
+
+      commitment: this.commitment,
+
+
+
+      transactionId: this.transactionId,
+
+
+
+      timestamp: this.timestamp
+
+
     });
   };
 
+  tempList = [];
+
   ngOnInit(): void {
     this.loadAll();
+    this.resetForm();
   }
 
   loadAll(): Promise<any> {
     let tempList = [];
     return this.serviceSendLoan.getAll()
-    .toPromise()
-    .then((result) => {
-			this.errorMessage = null;
-      result.forEach(transaction => {
-        tempList.push(transaction);
+      .toPromise()
+      .then((result) => {
+        this.errorMessage = null;
+        result.forEach(transaction => {
+          console.log(transaction);
+          tempList.push(transaction);
+        });
+        this.allTransactions = tempList;
+        this.tempList = tempList;
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else {
+          this.errorMessage = error;
+        }
       });
-      this.allTransactions = tempList;
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
-    });
   }
 
 	/**
@@ -112,252 +117,223 @@ export class SendLoanComponent implements OnInit {
   }
 
   addTransaction(form: any): Promise<any> {
+    console.log("FORM :: " + this.myForm);
     this.Transaction = {
       $class: "org.techno.demo.SendLoan",
-      
-        
-          "loan":this.loan.value,
-        
-      
-        
-          "commitment":this.commitment.value,
-        
-      
-        
-          "transactionId":this.transactionId.value,
-        
-      
-        
-          "timestamp":this.timestamp.value
-        
-      
+
+      "loan": this.loan.value,
+
+      "commitment": this.commitment.value,
+
+      "transactionId": null,
+
+      "timestamp": null
+
+
     };
 
     this.myForm.setValue({
-      
-        
-          "loan":null,
-        
-      
-        
-          "commitment":null,
-        
-      
-        
-          "transactionId":null,
-        
-      
-        
-          "timestamp":null
-        
-      
+
+
+      "loan": null,
+
+      "commitment": null,
+
+      "transactionId": null,
+
+      "timestamp": null
+
+
     });
 
     return this.serviceSendLoan.addTransaction(this.Transaction)
-    .toPromise()
-    .then(() => {
-			this.errorMessage = null;
-      this.myForm.setValue({
-      
-        
-          "loan":null,
-        
-      
-        
-          "commitment":null,
-        
-      
-        
-          "transactionId":null,
-        
-      
-        
-          "timestamp":null 
-        
-      
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+        this.myForm.setValue({
+
+          "loan": null,
+
+          "commitment": null
+
+        });
+        this.loadAll();
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else {
+          this.errorMessage = error;
+        }
       });
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else{
-            this.errorMessage = error;
-        }
-    });
   }
 
 
-   updateTransaction(form: any): Promise<any> {
+  updateTransaction(form: any): Promise<any> {
     this.Transaction = {
       $class: "org.techno.demo.SendLoan",
-      
-        
-          
-            "loan":this.loan.value,
-          
-        
-    
-        
-          
-            "commitment":this.commitment.value,
-          
-        
-    
-        
-          
-        
-    
-        
-          
-            "timestamp":this.timestamp.value
-          
-        
-    
+
+
+
+      "loan": this.loan.value,
+
+
+      "commitment": this.commitment.value,
+
+      "timestamp": this.timestamp.value
+
+
+
     };
 
-    return this.serviceSendLoan.updateTransaction(form.get("transactionId").value,this.Transaction)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-            else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
-    });
+    return this.serviceSendLoan.updateTransaction(form.get("transactionId").value, this.Transaction)
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else {
+          this.errorMessage = error;
+        }
+      });
   }
 
 
   deleteTransaction(): Promise<any> {
 
     return this.serviceSendLoan.deleteTransaction(this.currentId)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-			else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
-    });
+      .toPromise()
+      .then(() => {
+        this.errorMessage = null;
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else {
+          this.errorMessage = error;
+        }
+      });
   }
 
-  setId(id: any): void{
+  setId(id: any): void {
     this.currentId = id;
   }
 
-  getForm(id: any): Promise<any>{
+  getForm(id: any): Promise<any> {
 
     return this.serviceSendLoan.getTransaction(id)
-    .toPromise()
-    .then((result) => {
-			this.errorMessage = null;
-      let formObject = {
-        
-          
-            "loan":null,
-          
-        
-          
-            "commitment":null,
-          
-        
-          
-            "transactionId":null,
-          
-        
-          
-            "timestamp":null 
-          
-        
-      };
+      .toPromise()
+      .then((result) => {
+        this.errorMessage = null;
+        let formObject = {
+
+
+          "loan": null,
 
 
 
-      
-        if(result.loan){
-          
-            formObject.loan = result.loan;
-          
-        }else{
+          "commitment": null,
+
+
+
+          "transactionId": null,
+
+
+
+          "timestamp": null
+
+
+        };
+
+
+
+
+        if (result.loan) {
+
+          formObject.loan = result.loan;
+
+        } else {
           formObject.loan = null;
         }
-      
-        if(result.commitment){
-          
-            formObject.commitment = result.commitment;
-          
-        }else{
+
+        if (result.commitment) {
+
+          formObject.commitment = result.commitment;
+
+        } else {
           formObject.commitment = null;
         }
-      
-        if(result.transactionId){
-          
-            formObject.transactionId = result.transactionId;
-          
-        }else{
+
+        if (result.transactionId) {
+
+          formObject.transactionId = result.transactionId;
+
+        } else {
           formObject.transactionId = null;
         }
-      
-        if(result.timestamp){
-          
-            formObject.timestamp = result.timestamp;
-          
-        }else{
+
+        if (result.timestamp) {
+
+          formObject.timestamp = result.timestamp;
+
+        } else {
           formObject.timestamp = null;
         }
-      
 
-      this.myForm.setValue(formObject);
 
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        this.myForm.setValue(formObject);
+
+      })
+      .catch((error) => {
+        if (error == 'Server error') {
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
         }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        else if (error == '404 - Not Found') {
+          this.errorMessage = "404 - Could not find API route. Please check your available APIs."
         }
-        else{
-            this.errorMessage = error;
+        else {
+          this.errorMessage = error;
         }
-    });
+      });
 
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.myForm.setValue({
-      
-        
-          "loan":null,
-        
-      
-        
-          "commitment":null,
-        
-      
-        
-          "transactionId":null,
-        
-      
-        
-          "timestamp":null 
-        
-      
-      });
+
+
+      "loan": null,
+
+
+
+      "commitment": null,
+
+
+
+      "transactionId": null,
+
+
+
+      "timestamp": null
+
+
+    });
+  }
+
+  submitSendLoanTransaction(form: any) {
+    // console.log("Submitting transaction with loanid (" + form.loan.value + ") commitmentId (" + form.commitment.value + ")");
+    console.log("Set values to be sent Loan ID : " + this.loan.value + " Commitment ID : " + this.commitment.value);
   }
 
 }
