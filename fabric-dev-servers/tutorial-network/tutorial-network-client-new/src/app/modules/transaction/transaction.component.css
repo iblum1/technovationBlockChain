@@ -1,0 +1,44 @@
+.headers {
+    text-align: center;
+}
+.rows {
+    text-align: center;
+}
+.rows span {
+    padding: 15px;
+}
+.rows span:hover {
+    background-color: #91AA9D;
+    color: #fff;
+    cursor: pointer;
+}
+.rows th:first-of-type {
+    background-color: #193441;
+    color:#fff;
+}
+.rows td {
+    border-bottom: 2px solid #193441;
+    border-left: 4px solid #193441;
+}
+.table th {
+    border-top: none;
+}
+
+.table thead th {
+    border-bottom: 2px solid #183341;
+}
+.modal-title {
+    color: #4fdc5a;
+}
+.modal-title.sell {
+    color: #9c0000;
+}
+.modal-header {
+    background-color:#183341;
+}
+.close {
+    color: #fff;
+}
+.modal-content {
+    border: none;
+}

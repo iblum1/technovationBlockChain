@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+html,body {
+    background-color: #FCFFF5;
+}
+
+.btn.btn-primary {
+    background-color: #91AA9D;
+    border-color: #91AA9D;
+}
+
+table,.table {
+    border-color: #91AA9D;
+}
+.table td {
+    border-top: 1px solid #91AA9D;
+}
+
+

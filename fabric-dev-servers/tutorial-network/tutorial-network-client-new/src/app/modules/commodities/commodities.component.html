@@ -1,0 +1,21 @@
+<div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Trading Symbol</th>
+          <th scope="col">Description</th>
+          <th scope="col">Main Exchange</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Owner</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let commodity of commodities">
+        <td>{{commodity.tradingSymbol}}</td>
+        <td>{{commodity.description}}</td>
+        <td>{{commodity.mainExchange}}</td>
+        <td>{{commodity.quantity}}</td>
+        <td>{{commodity.owner}}</td>
+      </tr>
+    </table>
+  </div>
+  

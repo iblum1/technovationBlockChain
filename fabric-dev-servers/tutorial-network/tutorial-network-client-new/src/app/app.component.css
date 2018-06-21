@@ -1,0 +1,7 @@
+nav {
+    background-color: #3E606F;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link,.navbar-light .navbar-nav .nav-link,.navbar-light .navbar-brand {
+    color:#FFF;
+}

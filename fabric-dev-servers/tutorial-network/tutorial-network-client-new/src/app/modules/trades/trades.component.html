@@ -1,0 +1,18 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Commodity</th>
+        <th scope="col">Owner</th>
+        <th scope="col">Transaction ID</th>
+        <th scope="col">Timestamp</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let trade of trades">
+      <td>{{trade.commodity}}</td>
+      <td>{{trade.newOwner}}</td>
+      <td>{{trade.transactionId}}</td>
+      <td>{{trade.timestamp | date}}</td>
+    </tr>
+  </table>
+</div>
