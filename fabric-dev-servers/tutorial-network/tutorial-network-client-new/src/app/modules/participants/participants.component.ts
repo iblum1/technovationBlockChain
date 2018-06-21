@@ -12,6 +12,7 @@ export class ParticipantsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.getParticipants();
   }
 
   traders: any = [];

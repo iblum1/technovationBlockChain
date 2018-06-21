@@ -76,7 +76,7 @@ export class TransactionComponent implements OnInit {
       "$class": "org.example.mynetwork.Trade",
       commodity:this.tradingSymbol,
       newOwner:(this.owner=='FANNIEMAE')?'BOF':'FANNIEMAE',
-      transactionid: Math.floor(Math.random()*10000000),
+      transactionId: '',
       timestamp: new Date().toISOString()
     }
     this.isLoading = true;

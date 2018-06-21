@@ -12,6 +12,7 @@ export class CommoditiesComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.getParticipants();
   }
 
   commodities: any = [];
@@ -19,7 +20,7 @@ export class CommoditiesComponent implements OnInit {
     getParticipants() {
       console.log(Endpoints);
       // this.isLoading = true;
-      this.http.get(Endpoints.TRADER).subscribe(
+      this.http.get(Endpoints.COMMODITY).subscribe(
         (res) => {
           // this.isLoading = false;
           // this.router.navigate(['/trades']);
