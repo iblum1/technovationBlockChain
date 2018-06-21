@@ -19,36 +19,47 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Configuration } from '../configuration';
+import * as sinon from 'sinon';
 import { DataService } from '../data.service';
 import { TradeComponent } from './Trade.component';
 import {TradeService} from './Trade.service';
+
 describe('TradeComponent', () => {
   let component: TradeComponent;
   let fixture: ComponentFixture<TradeComponent>;
 
+  let mockTradeService;
+  let mockDataService
+
   beforeEach(async(() => {
+
+    mockTradeService = sinon.createStubInstance(TradeService);
+    mockTradeService.getAll.returns([]);
+    mockDataService = sinon.createStubInstance(DataService);
+
     TestBed.configureTestingModule({
       declarations: [ TradeComponent ],
-imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule
-  ],
-providers: [TradeService,DataService,Configuration]
-    })
-    .compileComponents();
-  }));
+      imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule
+      ],
+      providers: [
+        {provide: TradeService, useValue: mockTradeService },
+        {provide: DataService, useValue: mockDataService },
+      ]
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TradeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+
+  }));
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
 

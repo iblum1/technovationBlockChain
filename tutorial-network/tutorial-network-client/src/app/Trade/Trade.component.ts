@@ -16,10 +16,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { TradeService } from './Trade.service';
 import 'rxjs/add/operator/toPromise';
+
 @Component({
-	selector: 'app-Trade',
-	templateUrl: './Trade.component.html',
-	styleUrls: ['./Trade.component.css'],
+  selector: 'app-trade',
+  templateUrl: './Trade.component.html',
+  styleUrls: ['./Trade.component.css'],
   providers: [TradeService]
 })
 export class TradeComponent implements OnInit {
@@ -29,46 +30,20 @@ export class TradeComponent implements OnInit {
   private allTransactions;
   private Transaction;
   private currentId;
-	private errorMessage;
+  private errorMessage;
 
-  
-      
-          commodity = new FormControl("", Validators.required);
-        
-  
-      
-          newOwner = new FormControl("", Validators.required);
-        
-  
-      
-          transactionId = new FormControl("", Validators.required);
-        
-  
-      
-          timestamp = new FormControl("", Validators.required);
-        
-  
+  commodity = new FormControl('', Validators.required);
+  newOwner = new FormControl('', Validators.required);
+  transactionId = new FormControl('', Validators.required);
+  timestamp = new FormControl('', Validators.required);
 
 
-  constructor(private serviceTrade:TradeService, fb: FormBuilder) {
+  constructor(private serviceTrade: TradeService, fb: FormBuilder) {
     this.myForm = fb.group({
-    
-        
-          commodity:this.commodity,
-        
-    
-        
-          newOwner:this.newOwner,
-        
-    
-        
-          transactionId:this.transactionId,
-        
-    
-        
-          timestamp:this.timestamp
-        
-    
+      commodity: this.commodity,
+      newOwner: this.newOwner,
+      transactionId: this.transactionId,
+      timestamp: this.timestamp
     });
   };
 
@@ -77,26 +52,24 @@ export class TradeComponent implements OnInit {
   }
 
   loadAll(): Promise<any> {
-    let tempList = [];
+    const tempList = [];
     return this.serviceTrade.getAll()
     .toPromise()
     .then((result) => {
-			this.errorMessage = null;
+      this.errorMessage = null;
       result.forEach(transaction => {
         tempList.push(transaction);
       });
       this.allTransactions = tempList;
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
 
@@ -127,252 +100,143 @@ export class TradeComponent implements OnInit {
 
   addTransaction(form: any): Promise<any> {
     this.Transaction = {
-      $class: "org.acme.mynetwork.Trade",
-      
-        
-          "commodity":this.commodity.value,
-        
-      
-        
-          "newOwner":this.newOwner.value,
-        
-      
-        
-          "transactionId":this.transactionId.value,
-        
-      
-        
-          "timestamp":this.timestamp.value
-        
-      
+      $class: 'org.example.mynetwork.Trade',
+      'commodity': this.commodity.value,
+      'newOwner': this.newOwner.value,
+      'transactionId': this.transactionId.value,
+      'timestamp': this.timestamp.value
     };
 
     this.myForm.setValue({
-      
-        
-          "commodity":null,
-        
-      
-        
-          "newOwner":null,
-        
-      
-        
-          "transactionId":null,
-        
-      
-        
-          "timestamp":null
-        
-      
+      'commodity': null,
+      'newOwner': null,
+      'transactionId': null,
+      'timestamp': null
     });
 
     return this.serviceTrade.addTransaction(this.Transaction)
     .toPromise()
     .then(() => {
-			this.errorMessage = null;
+      this.errorMessage = null;
       this.myForm.setValue({
-      
-        
-          "commodity":null,
-        
-      
-        
-          "newOwner":null,
-        
-      
-        
-          "transactionId":null,
-        
-      
-        
-          "timestamp":null 
-        
-      
+        'commodity': null,
+        'newOwner': null,
+        'transactionId': null,
+        'timestamp': null
       });
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
 
-
-   updateTransaction(form: any): Promise<any> {
+  updateTransaction(form: any): Promise<any> {
     this.Transaction = {
-      $class: "org.acme.mynetwork.Trade",
-      
-        
-          
-            "commodity":this.commodity.value,
-          
-        
-    
-        
-          
-            "newOwner":this.newOwner.value,
-          
-        
-    
-        
-          
-        
-    
-        
-          
-            "timestamp":this.timestamp.value
-          
-        
-    
+      $class: 'org.example.mynetwork.Trade',
+      'commodity': this.commodity.value,
+      'newOwner': this.newOwner.value,
+      'timestamp': this.timestamp.value
     };
 
-    return this.serviceTrade.updateTransaction(form.get("transactionId").value,this.Transaction)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-            else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
+    return this.serviceTrade.updateTransaction(form.get('transactionId').value, this.Transaction)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+    })
+    .catch((error) => {
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+      this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
-
 
   deleteTransaction(): Promise<any> {
 
     return this.serviceTrade.deleteTransaction(this.currentId)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-			else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+    })
+    .catch((error) => {
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
 
-  setId(id: any): void{
+  setId(id: any): void {
     this.currentId = id;
   }
 
-  getForm(id: any): Promise<any>{
+  getForm(id: any): Promise<any> {
 
     return this.serviceTrade.getTransaction(id)
     .toPromise()
     .then((result) => {
-			this.errorMessage = null;
-      let formObject = {
-        
-          
-            "commodity":null,
-          
-        
-          
-            "newOwner":null,
-          
-        
-          
-            "transactionId":null,
-          
-        
-          
-            "timestamp":null 
-          
-        
+      this.errorMessage = null;
+      const formObject = {
+        'commodity': null,
+        'newOwner': null,
+        'transactionId': null,
+        'timestamp': null
       };
 
+      if (result.commodity) {
+        formObject.commodity = result.commodity;
+      } else {
+        formObject.commodity = null;
+      }
 
+      if (result.newOwner) {
+        formObject.newOwner = result.newOwner;
+      } else {
+        formObject.newOwner = null;
+      }
 
-      
-        if(result.commodity){
-          
-            formObject.commodity = result.commodity;
-          
-        }else{
-          formObject.commodity = null;
-        }
-      
-        if(result.newOwner){
-          
-            formObject.newOwner = result.newOwner;
-          
-        }else{
-          formObject.newOwner = null;
-        }
-      
-        if(result.transactionId){
-          
-            formObject.transactionId = result.transactionId;
-          
-        }else{
-          formObject.transactionId = null;
-        }
-      
-        if(result.timestamp){
-          
-            formObject.timestamp = result.timestamp;
-          
-        }else{
-          formObject.timestamp = null;
-        }
-      
+      if (result.transactionId) {
+        formObject.transactionId = result.transactionId;
+      } else {
+        formObject.transactionId = null;
+      }
+
+      if (result.timestamp) {
+        formObject.timestamp = result.timestamp;
+      } else {
+        formObject.timestamp = null;
+      }
 
       this.myForm.setValue(formObject);
 
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+      this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
-
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.myForm.setValue({
-      
-        
-          "commodity":null,
-        
-      
-        
-          "newOwner":null,
-        
-      
-        
-          "transactionId":null,
-        
-      
-        
-          "timestamp":null 
-        
-      
-      });
+      'commodity': null,
+      'newOwner': null,
+      'transactionId': null,
+      'timestamp': null
+    });
   }
-
 }
-

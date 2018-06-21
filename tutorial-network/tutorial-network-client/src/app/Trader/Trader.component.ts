@@ -16,10 +16,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { TraderService } from './Trader.service';
 import 'rxjs/add/operator/toPromise';
+
 @Component({
-	selector: 'app-Trader',
-	templateUrl: './Trader.component.html',
-	styleUrls: ['./Trader.component.css'],
+  selector: 'app-trader',
+  templateUrl: './Trader.component.html',
+  styleUrls: ['./Trader.component.css'],
   providers: [TraderService]
 })
 export class TraderComponent implements OnInit {
@@ -29,38 +30,18 @@ export class TraderComponent implements OnInit {
   private allParticipants;
   private participant;
   private currentId;
-	private errorMessage;
+  private errorMessage;
 
-  
-      
-          tradeId = new FormControl("", Validators.required);
-        
-  
-      
-          firstName = new FormControl("", Validators.required);
-        
-  
-      
-          lastName = new FormControl("", Validators.required);
-        
-  
+  tradeId = new FormControl('', Validators.required);
+  firstName = new FormControl('', Validators.required);
+  lastName = new FormControl('', Validators.required);
 
 
-  constructor(private serviceTrader:TraderService, fb: FormBuilder) {
+  constructor(private serviceTrader: TraderService, fb: FormBuilder) {
     this.myForm = fb.group({
-    
-        
-          tradeId:this.tradeId,
-        
-    
-        
-          firstName:this.firstName,
-        
-    
-        
-          lastName:this.lastName
-        
-    
+      tradeId: this.tradeId,
+      firstName: this.firstName,
+      lastName: this.lastName
     });
   };
 
@@ -69,26 +50,23 @@ export class TraderComponent implements OnInit {
   }
 
   loadAll(): Promise<any> {
-    let tempList = [];
+    const tempList = [];
     return this.serviceTrader.getAll()
     .toPromise()
     .then((result) => {
-			this.errorMessage = null;
+      this.errorMessage = null;
       result.forEach(participant => {
         tempList.push(participant);
       });
       this.allParticipants = tempList;
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+        this.errorMessage = error;
+      }
     });
   }
 
@@ -119,106 +97,58 @@ export class TraderComponent implements OnInit {
 
   addParticipant(form: any): Promise<any> {
     this.participant = {
-      $class: "org.acme.mynetwork.Trader",
-      
-        
-          "tradeId":this.tradeId.value,
-        
-      
-        
-          "firstName":this.firstName.value,
-        
-      
-        
-          "lastName":this.lastName.value
-        
-      
+      $class: 'org.example.mynetwork.Trader',
+      'tradeId': this.tradeId.value,
+      'firstName': this.firstName.value,
+      'lastName': this.lastName.value
     };
 
     this.myForm.setValue({
-      
-        
-          "tradeId":null,
-        
-      
-        
-          "firstName":null,
-        
-      
-        
-          "lastName":null
-        
-      
+      'tradeId': null,
+      'firstName': null,
+      'lastName': null
     });
 
     return this.serviceTrader.addParticipant(this.participant)
     .toPromise()
     .then(() => {
-			this.errorMessage = null;
+      this.errorMessage = null;
       this.myForm.setValue({
-      
-        
-          "tradeId":null,
-        
-      
-        
-          "firstName":null,
-        
-      
-        
-          "lastName":null 
-        
-      
+        'tradeId': null,
+        'firstName': null,
+        'lastName': null
       });
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
 
 
    updateParticipant(form: any): Promise<any> {
     this.participant = {
-      $class: "org.acme.mynetwork.Trader",
-      
-        
-          
-        
-    
-        
-          
-            "firstName":this.firstName.value,
-          
-        
-    
-        
-          
-            "lastName":this.lastName.value
-          
-        
-    
+      $class: 'org.example.mynetwork.Trader',
+      'firstName': this.firstName.value,
+      'lastName': this.lastName.value
     };
 
-    return this.serviceTrader.updateParticipant(form.get("tradeId").value,this.participant)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-            else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
+    return this.serviceTrader.updateParticipant(form.get('tradeId').value, this.participant)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+    })
+    .catch((error) => {
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
 
@@ -226,110 +156,74 @@ export class TraderComponent implements OnInit {
   deleteParticipant(): Promise<any> {
 
     return this.serviceTrader.deleteParticipant(this.currentId)
-		.toPromise()
-		.then(() => {
-			this.errorMessage = null;
-		})
-		.catch((error) => {
-            if(error == 'Server error'){
-				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-			}
-			else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-			}
-			else{
-				this.errorMessage = error;
-			}
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+    })
+    .catch((error) => {
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
   }
 
-  setId(id: any): void{
+  setId(id: any): void {
     this.currentId = id;
   }
 
-  getForm(id: any): Promise<any>{
+  getForm(id: any): Promise<any> {
 
     return this.serviceTrader.getparticipant(id)
     .toPromise()
     .then((result) => {
-			this.errorMessage = null;
-      let formObject = {
-        
-          
-            "tradeId":null,
-          
-        
-          
-            "firstName":null,
-          
-        
-          
-            "lastName":null 
-          
-        
+      this.errorMessage = null;
+      const formObject = {
+        'tradeId': null,
+        'firstName': null,
+        'lastName': null
       };
 
+      if (result.tradeId) {
+        formObject.tradeId = result.tradeId;
+      } else {
+        formObject.tradeId = null;
+      }
 
+      if (result.firstName) {
+        formObject.firstName = result.firstName;
+      } else {
+        formObject.firstName = null;
+      }
 
-      
-        if(result.tradeId){
-          
-            formObject.tradeId = result.tradeId;
-          
-        }else{
-          formObject.tradeId = null;
-        }
-      
-        if(result.firstName){
-          
-            formObject.firstName = result.firstName;
-          
-        }else{
-          formObject.firstName = null;
-        }
-      
-        if(result.lastName){
-          
-            formObject.lastName = result.lastName;
-          
-        }else{
-          formObject.lastName = null;
-        }
-      
+      if (result.lastName) {
+        formObject.lastName = result.lastName;
+      } else {
+        formObject.lastName = null;
+      }
 
       this.myForm.setValue(formObject);
-
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
     });
 
   }
 
-  resetForm(): void{
+  resetForm(): void {
     this.myForm.setValue({
-      
-        
-          "tradeId":null,
-        
-      
-        
-          "firstName":null,
-        
-      
-        
-          "lastName":null 
-        
-      
-      });
+      'tradeId': null,
+      'firstName': null,
+      'lastName': null
+    });
   }
-
 }

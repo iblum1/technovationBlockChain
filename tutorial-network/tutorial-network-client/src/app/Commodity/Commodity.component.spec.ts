@@ -19,35 +19,45 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Configuration } from '../configuration';
+import * as sinon from 'sinon';
 import { DataService } from '../data.service';
 import { CommodityComponent } from './Commodity.component';
-import {CommodityService} from './Commodity.service';
+import { CommodityService } from './Commodity.service';
+
 describe('CommodityComponent', () => {
   let component: CommodityComponent;
   let fixture: ComponentFixture<CommodityComponent>;
 
+  let mockCommodityService;
+  let mockDataService
+
   beforeEach(async(() => {
+
+    mockCommodityService = sinon.createStubInstance(CommodityService);
+    mockCommodityService.getAll.returns([]);
+    mockDataService = sinon.createStubInstance(DataService);
+
     TestBed.configureTestingModule({
       declarations: [ CommodityComponent ],
-imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule
-  ],
-providers: [CommodityService,DataService,Configuration]
-    })
-    .compileComponents();
-  }));
+      imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule
+      ],
+      providers: [
+        {provide: CommodityService, useValue: mockCommodityService },
+        {provide: DataService, useValue: mockDataService },
+      ]
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CommodityComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

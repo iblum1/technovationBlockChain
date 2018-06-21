@@ -17,34 +17,23 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { DataService }     from './data.service';
+import { DataService } from './data.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-// import { TransactionComponent } from './Transaction/Transaction.component'
 
 import { CommodityComponent } from './Commodity/Commodity.component';
 
+import { TraderComponent } from './Trader/Trader.component';
 
-  import { TraderComponent } from './Trader/Trader.component';
+import { TradeComponent } from './Trade/Trade.component';
 
-
-  import { TradeComponent } from './Trade/Trade.component';
-@NgModule({
+  @NgModule({
   declarations: [
     AppComponent,
-		HomeComponent,
-    // TransactionComponent,
-    
-    CommodityComponent
-    ,
-
-    
-      TraderComponent
-      ,
-
-    
-        TradeComponent
-        
+    HomeComponent,
+    CommodityComponent,
+    TraderComponent,
+    TradeComponent
   ],
   imports: [
     BrowserModule,
