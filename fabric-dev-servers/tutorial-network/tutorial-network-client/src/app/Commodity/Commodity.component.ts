@@ -101,7 +101,7 @@ export class CommodityComponent implements OnInit {
 
   addAsset(form: any): Promise<any> {
     this.asset = {
-      $class: 'org.acme.mynetwork.Commodity',
+      $class: 'org.example.mynetwork.Commodity',
       'tradingSymbol': this.tradingSymbol.value,
       'description': this.description.value,
       'mainExchange': this.mainExchange.value,
@@ -141,7 +141,7 @@ export class CommodityComponent implements OnInit {
 
   updateAsset(form: any): Promise<any> {
     this.asset = {
-      $class: 'org.acme.mynetwork.Commodity',
+      $class: 'org.example.mynetwork.Commodity',
       'description': this.description.value,
       'mainExchange': this.mainExchange.value,
       'quantity': this.quantity.value,

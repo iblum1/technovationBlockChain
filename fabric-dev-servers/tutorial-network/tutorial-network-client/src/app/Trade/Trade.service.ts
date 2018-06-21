@@ -15,7 +15,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Trade } from '../org.acme.mynetwork';
+import { Trade } from '../org.example.mynetwork';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor

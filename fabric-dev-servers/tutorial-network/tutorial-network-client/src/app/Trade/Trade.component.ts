@@ -100,7 +100,7 @@ export class TradeComponent implements OnInit {
 
   addTransaction(form: any): Promise<any> {
     this.Transaction = {
-      $class: 'org.acme.mynetwork.Trade',
+      $class: 'org.example.mynetwork.Trade',
       'commodity': this.commodity.value,
       'newOwner': this.newOwner.value,
       'transactionId': this.transactionId.value,
@@ -136,7 +136,7 @@ export class TradeComponent implements OnInit {
 
   updateTransaction(form: any): Promise<any> {
     this.Transaction = {
-      $class: 'org.acme.mynetwork.Trade',
+      $class: 'org.example.mynetwork.Trade',
       'commodity': this.commodity.value,
       'newOwner': this.newOwner.value,
       'timestamp': this.timestamp.value
