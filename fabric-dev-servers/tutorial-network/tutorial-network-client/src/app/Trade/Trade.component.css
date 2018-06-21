@@ -11,11 +11,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.container {
-    margin-left: 72px;
-    margin-right: 32px;
-    background-color: #F4F4F4;
-    border-radius: 5px;
+ .container {
+    width: 100%;
+    padding-left: 72px;
+    padding-right: 72px;
 }
 
 .btn-primary {
