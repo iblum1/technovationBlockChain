@@ -23,7 +23,7 @@ export class TransactionComponent implements OnInit {
   transaction: string;
   isLoading: boolean = false;
   products = [
-    'FN15','FN30','FN45'
+    'FN15','FN30','PC15','PC30','GN30','G230'
   ]
   headers = [
     '','JUN', 'JUL','AUG'
