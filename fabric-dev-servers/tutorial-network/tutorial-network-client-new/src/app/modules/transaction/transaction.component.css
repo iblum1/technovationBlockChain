@@ -42,3 +42,9 @@
 .modal-content {
     border: none;
 }
+.not-loading {
+    display: none;
+}
+.loading {
+    display: block;
+}

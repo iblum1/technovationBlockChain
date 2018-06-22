@@ -1,0 +1,129 @@
+/* You can add global styles to this file, and also import other style files */
+html,body {
+    /* background-color: #FCFFF5; */
+    background-color: none;
+}
+
+.btn.btn-primary {
+    background-color: #91AA9D;
+    border-color: #91AA9D;
+}
+
+table,.table {
+    color:#fff;
+    border-color: #91AA9D;
+}
+.table td {
+    border-top: 1px solid #91AA9D;
+}
+
+.background-image {
+    z-index: -1;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+}
+
+.background-image div {
+    background-image: url('./assets/bg.jpg');
+    background-size: cover;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-color: #FCFFF5;
+    animation-name: zoom;
+    animation-duration: 90s;
+    animation-iteration-count: infinite;
+}
+
+.jumbotron {
+    background-color:rgba(233, 236, 239,.5);
+    color: #fff;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+  
+    to {
+        transform: scale(1);
+    }
+  }
+.loader-parent-container {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color: rgba(84, 0, 50,.85);
+}
+  .loader-container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+  }
+#kite-loader {
+	width: 200px;
+	.path {
+		fill: none;
+		stroke: #9FADE8;//#212529;
+		stroke-linecap: square;
+		stroke-miterlimit: 10;
+        stroke-width: 1.5px;
+    }
+	#angle {
+        stroke-width:1;
+		fill:#9FADE8;//#212529;
+    }
+		
+	#frame {
+        animation: frame-animation 5s infinite ease;
+    }
+	#angle {
+		transform-origin: 25px 7px;
+        animation: angle-animation 5s infinite ease;
+    }
+}
+@keyframes frame-animation {
+	0%, 10% {
+		stroke-dashoffset: 150px;
+        stroke-dasharray: 150px;
+    }
+	40%, 60% {
+		stroke-dashoffset: 0;
+        stroke-dasharray: 150px;
+    }
+	 90%, 100% {
+		stroke-dashoffset: -150px;
+        stroke-dasharray: 150px;
+     }
+}
+@keyframes angle-animation {
+	0%, 10% {
+		opacity: 0;
+        transform: translate(0, 10px);
+    }
+	40%, 60% {
+		opacity: 1;
+        transform: translate(0, 0);
+    }
+	90%, 100% {
+		opacity: 0;
+        transform: translate(0, -10px);
+    }
+}
+			
+			
+			
+

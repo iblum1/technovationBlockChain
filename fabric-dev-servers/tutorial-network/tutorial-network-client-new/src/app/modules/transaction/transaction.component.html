@@ -1,5 +1,9 @@
-<p>
-</p>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Add a transaction to the Blockchain</h1>
+    <p class="lead">Buying or Selling an MBS trade will add it to the Hyperledger blockchain!</p>
+  </div>
+</div>
 
 <div class="container">
   <div class="row">
@@ -87,3 +91,16 @@
   </div>
 
 </div>
+<div [ngClass]="{'loader-parent-container':true,'loading':isLoading,'not-loading':!isLoading}">
+
+    <div [ngClass]="{'loader-container':true}">
+        <svg id="kite-loader" viewBox="0 -10 50 40" preserveAspectRatio="xMidYMid">
+          <rect id="frame" x="1" y="1" class="path" width="48" height="27"/>
+      <!-- 		<polyline id="angle" class="path" points="7.5,22.5 25.3,7.5 42.5,22.5 	"/> -->
+          <text x="14.5" y="20" id="angle" class="path">FM</text>
+          <line id="line" class="path" x1="7.5" y1="6.5" x2="42.5" y2="6.5"/>
+        </svg>
+      </div>
+
+</div>
+

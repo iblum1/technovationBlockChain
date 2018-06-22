@@ -3,6 +3,7 @@ import { Endpoints } from '../endpoints';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { ChangeDetectorRef } from '@angular/core';
 declare const $;
 @Component({
   selector: 'app-transaction',
@@ -11,7 +12,7 @@ declare const $;
 })
 export class TransactionComponent implements OnInit {
 
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private http: HttpClient,private router: Router,private changeDetector: ChangeDetectorRef) { }
 
   tradingSymbol: string = 'symbol';
   description: string = '';
@@ -51,6 +52,7 @@ export class TransactionComponent implements OnInit {
 
   createCommodity() {
     $('#transactionModal').modal();
+    this.changeDetector.detectChanges();
     let formData = {
       "$class": "org.example.mynetwork.Commodity",
       tradingSymbol:this.tradingSymbol,
